@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- *
  * @author miguel
  */
 public class Util {
@@ -25,7 +24,7 @@ public class Util {
 
             try {
                 conn = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/teste", "postgres", "root");
+                        "jdbc:postgresql://localhost:5432/flash_cards", "postgres", "root");
                 //conn.setAutoCommit(false);
             } catch (Exception e) {
                 System.out.println("ERRO " + e);
