@@ -1,0 +1,246 @@
+-- Table: public.UserTypes
+
+-- DROP TABLE public."UserTypes";
+
+CREATE TABLE public."UserTypes"
+(
+    key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    name text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "UserType_pkey" PRIMARY KEY (key)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."UserTypes"
+    OWNER to postgres;
+
+-- Table: public.User
+
+-- DROP TABLE public."User";
+
+CREATE TABLE public."User"
+(
+    email text COLLATE pg_catalog."default" NOT NULL,
+    key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    name text COLLATE pg_catalog."default" NOT NULL,
+    password text COLLATE pg_catalog."default" NOT NULL,
+    type integer NOT NULL,
+    CONSTRAINT "User_pkey" PRIMARY KEY (key),
+    CONSTRAINT "frk.userType" FOREIGN KEY (type)
+        REFERENCES public."UserTypes" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."User"
+    OWNER to postgres;
+
+-- Table: public.Courses
+
+-- DROP TABLE public."Courses";
+
+CREATE TABLE public."Courses"
+(
+    key integer NOT NULL,
+    grade integer NOT NULL,
+    name "char" NOT NULL,
+    CONSTRAINT courses_pkey PRIMARY KEY (key)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Courses"
+    OWNER to postgres;
+
+-- Table: public.Disciplines
+
+-- DROP TABLE public."Disciplines";
+
+CREATE TABLE public."Disciplines"
+(
+    key integer NOT NULL,
+    name "char" NOT NULL,
+    course integer NOT NULL,
+    year integer NOT NULL,
+    CONSTRAINT "Disciplines_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_discipline_course FOREIGN KEY (course)
+        REFERENCES public."Courses" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Disciplines"
+    OWNER to postgres;
+
+-- Table: public.DeckTypes
+
+-- DROP TABLE public."DeckTypes";
+
+CREATE TABLE public."DeckTypes"
+(
+    key integer NOT NULL,
+    name "char" NOT NULL,
+    CONSTRAINT "DecksTypes_pkey" PRIMARY KEY (key)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."DeckTypes"
+    OWNER to postgres;
+
+-- Table: public.DisciplinesUsers
+
+-- DROP TABLE public."DisciplinesUsers";
+
+CREATE TABLE public."DisciplinesUsers"
+(
+    key integer NOT NULL,
+    discipline integer NOT NULL,
+    "user" integer NOT NULL,
+    CONSTRAINT "DisciplinesUsers_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_discipline FOREIGN KEY (discipline)
+        REFERENCES public."Disciplines" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_user FOREIGN KEY ("user")
+        REFERENCES public."User" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."DisciplinesUsers"
+    OWNER to postgres;
+
+-- Table: public.AnswerTypes
+
+-- DROP TABLE public."AnswerTypes";
+
+CREATE TABLE public."AnswerTypes"
+(
+    key integer NOT NULL,
+    name "char" NOT NULL,
+    CONSTRAINT "AnswerTypes_pkey" PRIMARY KEY (key)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."AnswerTypes"
+    OWNER to postgres;
+
+-- Table: public.Decks
+
+-- DROP TABLE public."Decks";
+
+CREATE TABLE public."Decks"
+(
+    key integer NOT NULL,
+    name "char" NOT NULL,
+    description "char",
+    type integer NOT NULL,
+    "userCreator" integer NOT NULL,
+    CONSTRAINT "Decks_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_type FOREIGN KEY (type)
+        REFERENCES public."DeckTypes" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "fk_userCreator" FOREIGN KEY ("userCreator")
+        REFERENCES public."User" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Decks"
+    OWNER to postgres;
+
+-- Table: public.DeckDisciplines
+
+-- DROP TABLE public."DeckDisciplines";
+
+CREATE TABLE public."DeckDisciplines"
+(
+    key integer NOT NULL,
+    deck integer NOT NULL,
+    discipline integer NOT NULL,
+    CONSTRAINT "DeckDisciplines_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_decks FOREIGN KEY (deck)
+        REFERENCES public."Decks" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_disciplines FOREIGN KEY (discipline)
+        REFERENCES public."Disciplines" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."DeckDisciplines"
+    OWNER to postgres;
+
+-- Table: public.Cards
+
+-- DROP TABLE public."Cards";
+
+CREATE TABLE public."Cards"
+(
+    key integer NOT NULL,
+    deck integer NOT NULL,
+    question "char" NOT NULL,
+    "questionImage" "char",
+    answer "char",
+    "answerImage" "char",
+    commentary "char",
+    activated integer,
+    CONSTRAINT fk_deck PRIMARY KEY (key),
+    CONSTRAINT fk_deck_card FOREIGN KEY (deck)
+        REFERENCES public."Decks" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Cards"
+    OWNER to postgres;
+
+-- Table: public.UsersCardsAnswers
+
+-- DROP TABLE public."UsersCardsAnswers";
+
+CREATE TABLE public."UsersCardsAnswers"
+(
+    key integer NOT NULL,
+    card integer NOT NULL,
+    "user" integer NOT NULL,
+    type integer NOT NULL,
+    date date NOT NULL,
+    CONSTRAINT "UsersCardsAnswers_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_card_answer FOREIGN KEY (card)
+        REFERENCES public."Cards" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_type_answer FOREIGN KEY (type)
+        REFERENCES public."AnswerTypes" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fk_user_answer FOREIGN KEY ("user")
+        REFERENCES public."User" (key) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."UsersCardsAnswers"
+    OWNER to postgres;
+
