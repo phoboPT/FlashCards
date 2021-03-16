@@ -43,7 +43,7 @@ ALTER TABLE public."User"
 
 CREATE TABLE public."Course"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     grade integer NOT NULL,
     name "char" NOT NULL,
     CONSTRAINT Course_pkey PRIMARY KEY (key)
@@ -60,7 +60,7 @@ ALTER TABLE public."Course"
 
 CREATE TABLE public."Discipline"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name "char" NOT NULL,
     course integer NOT NULL,
     year integer NOT NULL,
@@ -83,7 +83,7 @@ ALTER TABLE public."Discipline"
 
 CREATE TABLE public."DeckType"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name "char" NOT NULL,
     CONSTRAINT "DeckType_pkey" PRIMARY KEY (key)
 )
@@ -99,7 +99,7 @@ ALTER TABLE public."DeckType"
 
 CREATE TABLE public."DisciplineUser"
 (
-    key integer NOT NULL,
+  key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     discipline integer NOT NULL,
     "user" integer NOT NULL,
     CONSTRAINT "DisciplineUser_pkey" PRIMARY KEY (key),
@@ -124,7 +124,7 @@ ALTER TABLE public."DisciplineUser"
 
 CREATE TABLE public."AnswerType"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name "char" NOT NULL,
     CONSTRAINT "AnswerType_pkey" PRIMARY KEY (key)
 )
@@ -140,7 +140,7 @@ ALTER TABLE public."AnswerType"
 
 CREATE TABLE public."Deck"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name "char" NOT NULL,
     description "char",
     type integer NOT NULL,
@@ -167,7 +167,7 @@ ALTER TABLE public."Deck"
 
 CREATE TABLE public."DeckDiscipline"
 (
-    key integer NOT NULL,
+   key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     deck integer NOT NULL,
     discipline integer NOT NULL,
     CONSTRAINT "DeckDiscipline_pkey" PRIMARY KEY (key),
@@ -192,7 +192,7 @@ ALTER TABLE public."DeckDiscipline"
 
 CREATE TABLE public."Card"
 (
-    key integer NOT NULL,
+    key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     deck integer NOT NULL,
     question "char" NOT NULL,
     "questionImage" "char",
@@ -218,7 +218,7 @@ ALTER TABLE public."Card"
 
 CREATE TABLE public."UserCardAnswers"
 (
-    key integer NOT NULL,
+    kkey integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     card integer NOT NULL,
     "user" integer NOT NULL,
     type integer NOT NULL,
