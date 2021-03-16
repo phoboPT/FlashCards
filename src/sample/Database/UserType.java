@@ -38,7 +38,7 @@ public class UserType {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("erro" + ex.getMessage());
+            System.out.println("Error! " + ex.getMessage());
         }
         return false;
     }

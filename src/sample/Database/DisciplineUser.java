@@ -6,20 +6,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UsersDiscipline {
+public class DisciplineUser {
     int key;
     int disciplineKey;
     int userKey;
 
 
-    public UsersDiscipline() {
+    public DisciplineUser() {
         this.key = 0;
         this.disciplineKey = 0;
         this.userKey = 0;
     }
 
 
-    public UsersDiscipline(int key, int disciplineKey, int userKey) {
+    public DisciplineUser(int key, int disciplineKey, int userKey) {
         this.key = key;
 
         this.disciplineKey = disciplineKey;
@@ -44,7 +44,7 @@ public class UsersDiscipline {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("erro" + ex.getMessage());
+            System.out.println("Error! " + ex.getMessage());
         }
         return false;
     }
