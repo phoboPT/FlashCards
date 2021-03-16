@@ -6,26 +6,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Classe {
+public class Discipline {
     int key;
     String name;
     int courseKey;
     String year;
 
 
-    public Classe() {
+    public Discipline() {
         this.key = 0;
         this.name = "";
-       this.courseKey=0;
-       this.year="";
+        this.courseKey = 0;
+        this.year = "";
     }
 
 
-    public Classe(int key, String name,int courseKey,String year) {
+    public Discipline(int key, String name, int courseKey, String year) {
         this.key = key;
-        this.name=name ;
-        this.courseKey=courseKey;
-        this.year=year;
+        this.name = name;
+        this.courseKey = courseKey;
+        this.year = year;
 
     }
 
@@ -41,7 +41,6 @@ public class Classe {
             st.setString(1, this.name);
             st.setInt(2, this.courseKey);
             st.setString(3, this.year);
-
 
 
             st.execute();
@@ -83,7 +82,6 @@ public class Classe {
 
         return false;
     }
-
 
 
 }

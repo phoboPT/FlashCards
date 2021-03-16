@@ -6,24 +6,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserClasse {
+public class UsersDiscipline {
     int key;
-    int classKey;
+    int disciplineKey;
     int userKey;
 
 
-    public UserClasse() {
+    public UsersDiscipline() {
         this.key = 0;
-
-        this.classKey = 0;
+        this.disciplineKey = 0;
         this.userKey = 0;
     }
 
 
-    public UserClasse(int key, int classKey, int userKey) {
+    public UsersDiscipline(int key, int disciplineKey, int userKey) {
         this.key = key;
 
-        this.classKey = classKey;
+        this.disciplineKey = disciplineKey;
         this.userKey = userKey;
 
     }
@@ -31,13 +30,13 @@ public class UserClasse {
     public boolean create() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "INSERT INTO public.\"Post\" (classKey ,userKey)VALUES (?,?);";
+        String sqlCommand = "INSERT INTO public.\"Post\" (disciplineKey ,userKey)VALUES (?,?);";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
 
 
-            st.setInt(1, this.classKey);
+            st.setInt(1, this.disciplineKey);
             st.setInt(2, this.userKey);
 
 
