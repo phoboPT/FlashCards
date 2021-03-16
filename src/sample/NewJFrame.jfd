@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:22:p, par l {comp label3::l:p::p, comp label2::l:p::p, comp label1::l:p::p}, space :p:18:p, par t {comp jTextField3::l:::x, comp jTextField2:::::x, comp jTextField1:::::x}, space :p:523:p}, seq {par l {seq {space :p:207:p, comp button1:::p::p, space :::p, comp jButton1:::p::p, space :::p, comp button2:::p::p, space u:::p, comp button3:::p::p}, seq l {space :p:290:p, comp label4:::p::p, space :::p, comp textField1:::::x}}, space :p:499:p}}"
-			"$verticalGroup": "par l {seq l {space :p:59:p, par b {comp label1::b:p::p, comp jTextField1::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp jTextField2::b:p::p}, par l {seq {space :p:9:p, comp label3:::p::p}, seq l {space :::p, comp jTextField3:::p::p}}, space :p:32:p, par b {comp label4::b:p::p, comp textField1::b:p::p}, space :p:36:p, par b {comp button1::b:p::p, comp jButton1::b:p::p, comp button2::b:p::p, comp button3::b:p::p}, space ::356:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :p:290:p, comp label4:::p::p, space :::p, comp textField1:::::x}, seq l {space :p:275:p, comp button1:::p::p, space :0:0:p, comp jButton1:::p::p, space :::p, comp button2:::p::p, space u:::p, comp button3:::p::p}}, space :p:499:p}, seq l {space :p:22:p, par l {comp label3::l:p::p, comp label2::l:p::p, comp label1::l:p::p}, space :p:18:p, par t {comp jTextField3::l:::x, comp jTextField2:::::x, comp jTextField1:::::x}, space :p:523:p}}"
+			"$verticalGroup": "par l {seq l {space :p:69:p, par b {comp label1::b:p::p, comp jTextField1::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp jTextField2::b:p::p}, par l {seq {space :p:9:p, comp label3:::p::p}, seq l {space :::p, comp jTextField3:::p::p}}, space :p:32:p, par b {comp label4::b:p::p, comp textField1::b:p::p}, space :p:36:p, par b {comp button1::b:p::p, comp jButton1::b:p::p, comp button2::b:p::p, comp button3::b:p::p}, space ::276:x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 3
@@ -57,9 +57,33 @@ new FormModel {
 				name: "label4"
 				"text": "ID"
 			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "text"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem1"
+						"text": "text"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem2"
+						"text": "text"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem2MouseClicked", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu2"
+					"text": "Gerir"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem3"
+						"text": "AnswerTypes"
+					} )
+				} )
+			}
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 990, 635 )
-			"location": new java.awt.Point( 0, 0 )
+			"location": new java.awt.Point( 5, 0 )
 		} )
 	}
 }
