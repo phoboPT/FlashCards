@@ -45,7 +45,7 @@ public class NewJFrame extends JFrame {
         User.delete(Integer.parseInt(textField1.getText()));
     }
 
-
+    // teste 123
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Hugo
