@@ -1,8 +1,8 @@
--- Table: public.UserTypes
+-- Table: public.UserType
 
--- DROP TABLE public."UserTypes";
+-- DROP TABLE public."UserType";
 
-CREATE TABLE public."UserTypes"
+CREATE TABLE public."UserType"
 (
     key integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name text COLLATE pg_catalog."default" NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE public."UserTypes"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."UserTypes"
+ALTER TABLE public."UserType"
     OWNER to postgres;
 
 -- Table: public.User
@@ -27,7 +27,7 @@ CREATE TABLE public."User"
     type integer NOT NULL,
     CONSTRAINT "User_pkey" PRIMARY KEY (key),
     CONSTRAINT "frk.userType" FOREIGN KEY (type)
-        REFERENCES public."UserTypes" (key) MATCH SIMPLE
+        REFERENCES public."UserType" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
@@ -37,36 +37,36 @@ TABLESPACE pg_default;
 ALTER TABLE public."User"
     OWNER to postgres;
 
--- Table: public.Courses
+-- Table: public.Course
 
--- DROP TABLE public."Courses";
+-- DROP TABLE public."Course";
 
-CREATE TABLE public."Courses"
+CREATE TABLE public."Course"
 (
     key integer NOT NULL,
     grade integer NOT NULL,
     name "char" NOT NULL,
-    CONSTRAINT courses_pkey PRIMARY KEY (key)
+    CONSTRAINT Course_pkey PRIMARY KEY (key)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."Courses"
+ALTER TABLE public."Course"
     OWNER to postgres;
 
--- Table: public.Disciplines
+-- Table: public.Discipline
 
--- DROP TABLE public."Disciplines";
+-- DROP TABLE public."Discipline";
 
-CREATE TABLE public."Disciplines"
+CREATE TABLE public."Discipline"
 (
     key integer NOT NULL,
     name "char" NOT NULL,
     course integer NOT NULL,
     year integer NOT NULL,
-    CONSTRAINT "Disciplines_pkey" PRIMARY KEY (key),
+    CONSTRAINT "Discipline_pkey" PRIMARY KEY (key),
     CONSTRAINT fk_discipline_course FOREIGN KEY (course)
-        REFERENCES public."Courses" (key) MATCH SIMPLE
+        REFERENCES public."Course" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -74,37 +74,37 @@ CREATE TABLE public."Disciplines"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."Disciplines"
+ALTER TABLE public."Discipline"
     OWNER to postgres;
 
--- Table: public.DeckTypes
+-- Table: public.DeckType
 
--- DROP TABLE public."DeckTypes";
+-- DROP TABLE public."DeckType";
 
-CREATE TABLE public."DeckTypes"
+CREATE TABLE public."DeckType"
 (
     key integer NOT NULL,
     name "char" NOT NULL,
-    CONSTRAINT "DecksTypes_pkey" PRIMARY KEY (key)
+    CONSTRAINT "DeckType_pkey" PRIMARY KEY (key)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."DeckTypes"
+ALTER TABLE public."DeckType"
     OWNER to postgres;
 
--- Table: public.DisciplinesUsers
+-- Table: public.DisciplineUser
 
--- DROP TABLE public."DisciplinesUsers";
+-- DROP TABLE public."DisciplineUser";
 
-CREATE TABLE public."DisciplinesUsers"
+CREATE TABLE public."DisciplineUser"
 (
     key integer NOT NULL,
     discipline integer NOT NULL,
     "user" integer NOT NULL,
-    CONSTRAINT "DisciplinesUsers_pkey" PRIMARY KEY (key),
+    CONSTRAINT "DisciplineUser_pkey" PRIMARY KEY (key),
     CONSTRAINT fk_discipline FOREIGN KEY (discipline)
-        REFERENCES public."Disciplines" (key) MATCH SIMPLE
+        REFERENCES public."Discipline" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fk_user FOREIGN KEY ("user")
@@ -115,39 +115,39 @@ CREATE TABLE public."DisciplinesUsers"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."DisciplinesUsers"
+ALTER TABLE public."DisciplineUser"
     OWNER to postgres;
 
--- Table: public.AnswerTypes
+-- Table: public.AnswerType
 
--- DROP TABLE public."AnswerTypes";
+-- DROP TABLE public."AnswerType";
 
-CREATE TABLE public."AnswerTypes"
+CREATE TABLE public."AnswerType"
 (
     key integer NOT NULL,
     name "char" NOT NULL,
-    CONSTRAINT "AnswerTypes_pkey" PRIMARY KEY (key)
+    CONSTRAINT "AnswerType_pkey" PRIMARY KEY (key)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."AnswerTypes"
+ALTER TABLE public."AnswerType"
     OWNER to postgres;
 
--- Table: public.Decks
+-- Table: public.Deck
 
--- DROP TABLE public."Decks";
+-- DROP TABLE public."Deck";
 
-CREATE TABLE public."Decks"
+CREATE TABLE public."Deck"
 (
     key integer NOT NULL,
     name "char" NOT NULL,
     description "char",
     type integer NOT NULL,
     "userCreator" integer NOT NULL,
-    CONSTRAINT "Decks_pkey" PRIMARY KEY (key),
+    CONSTRAINT "Deck_pkey" PRIMARY KEY (key),
     CONSTRAINT fk_type FOREIGN KEY (type)
-        REFERENCES public."DeckTypes" (key) MATCH SIMPLE
+        REFERENCES public."DeckType" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT "fk_userCreator" FOREIGN KEY ("userCreator")
@@ -158,39 +158,39 @@ CREATE TABLE public."Decks"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."Decks"
+ALTER TABLE public."Deck"
     OWNER to postgres;
 
--- Table: public.DeckDisciplines
+-- Table: public.DeckDiscipline
 
--- DROP TABLE public."DeckDisciplines";
+-- DROP TABLE public."DeckDiscipline";
 
-CREATE TABLE public."DeckDisciplines"
+CREATE TABLE public."DeckDiscipline"
 (
     key integer NOT NULL,
     deck integer NOT NULL,
     discipline integer NOT NULL,
-    CONSTRAINT "DeckDisciplines_pkey" PRIMARY KEY (key),
-    CONSTRAINT fk_decks FOREIGN KEY (deck)
-        REFERENCES public."Decks" (key) MATCH SIMPLE
+    CONSTRAINT "DeckDiscipline_pkey" PRIMARY KEY (key),
+    CONSTRAINT fk_Deck FOREIGN KEY (deck)
+        REFERENCES public."Deck" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fk_disciplines FOREIGN KEY (discipline)
-        REFERENCES public."Disciplines" (key) MATCH SIMPLE
+    CONSTRAINT fk_Discipline FOREIGN KEY (discipline)
+        REFERENCES public."Discipline" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."DeckDisciplines"
+ALTER TABLE public."DeckDiscipline"
     OWNER to postgres;
 
--- Table: public.Cards
+-- Table: public.Card
 
--- DROP TABLE public."Cards";
+-- DROP TABLE public."Card";
 
-CREATE TABLE public."Cards"
+CREATE TABLE public."Card"
 (
     key integer NOT NULL,
     deck integer NOT NULL,
@@ -202,34 +202,34 @@ CREATE TABLE public."Cards"
     activated integer,
     CONSTRAINT fk_deck PRIMARY KEY (key),
     CONSTRAINT fk_deck_card FOREIGN KEY (deck)
-        REFERENCES public."Decks" (key) MATCH SIMPLE
+        REFERENCES public."Deck" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."Cards"
+ALTER TABLE public."Card"
     OWNER to postgres;
 
--- Table: public.UsersCardsAnswers
+-- Table: public.UserCardAnswers
 
--- DROP TABLE public."UsersCardsAnswers";
+-- DROP TABLE public."UserCardAnswers";
 
-CREATE TABLE public."UsersCardsAnswers"
+CREATE TABLE public."UserCardAnswers"
 (
     key integer NOT NULL,
     card integer NOT NULL,
     "user" integer NOT NULL,
     type integer NOT NULL,
     date date NOT NULL,
-    CONSTRAINT "UsersCardsAnswers_pkey" PRIMARY KEY (key),
+    CONSTRAINT "UserCardAnswers_pkey" PRIMARY KEY (key),
     CONSTRAINT fk_card_answer FOREIGN KEY (card)
-        REFERENCES public."Cards" (key) MATCH SIMPLE
+        REFERENCES public."Card" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fk_type_answer FOREIGN KEY (type)
-        REFERENCES public."AnswerTypes" (key) MATCH SIMPLE
+        REFERENCES public."AnswerType" (key) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID,
@@ -241,6 +241,6 @@ CREATE TABLE public."UsersCardsAnswers"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."UsersCardsAnswers"
+ALTER TABLE public."UserCardAnswers"
     OWNER to postgres;
 

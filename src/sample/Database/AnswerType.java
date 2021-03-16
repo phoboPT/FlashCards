@@ -10,17 +10,14 @@ public class AnswerType {
     int key;
     String name;
 
-
     public AnswerType() {
         this.key = 0;
         this.name = "";
     }
 
-
     public AnswerType(int key, String name) {
         this.key = key;
         this.name = name;
-
     }
 
     public boolean create() {
@@ -38,7 +35,7 @@ public class AnswerType {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("erro" + ex.getMessage());
+            System.out.println("Error! " + ex.getMessage());
         }
         return false;
     }
