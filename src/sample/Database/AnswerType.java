@@ -58,7 +58,7 @@ public class AnswerType {
     public static List<AnswerType> list() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "SELECT * FROM \"AnswerType\";";
+        String sqlCommand = "SELECT * FROM \"AnswerType\" ORDER BY key ASC ;";
         List<AnswerType> data = new ArrayList<>();
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
@@ -81,16 +81,37 @@ public class AnswerType {
 
     }
 
-    public boolean update(int key) {
+    public static boolean update(int key, String name) {
+        Connection conn = Util.criarConexao();
 
+        String sqlCommand = "UPDATE public.\"AnswerType\" SET  name= '" + name + "' WHERE key=" + key + ";";
+        System.out.println(sqlCommand);
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.execute();
+            return true;
 
+        } catch (SQLException ex) {
+            System.out.println("Error! " + ex.getMessage());
+        }
         return false;
     }
 
 
-    public boolean delete(int key) {
+    public static boolean delete(int key) {
 
+        Connection conn = Util.criarConexao();
 
+        String sqlCommand = "DELETE FROM public.\"AnswerType\"  WHERE key=" + key + ";";
+        System.out.println(sqlCommand);
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error! " + ex.getMessage());
+        }
         return false;
     }
 

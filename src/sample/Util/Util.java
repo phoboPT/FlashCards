@@ -20,18 +20,14 @@ public class Util {
         if (conn != null) {
             return conn;
         } else {
-
-
             try {
-                conn = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/flash_cards", "postgres", "root");
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/flash_cards", "postgres", "root");
                 //conn.setAutoCommit(false);
             } catch (Exception e) {
                 System.out.println("ERRO " + e);
-                //javax.swing.JOptionPane.showMessageDialog(null,e.getMessage(),"ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-                System.exit(-2);
+                javax.swing.JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                //System.exit(-2);
             }
-
             return conn;
         }
     }

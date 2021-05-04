@@ -4,74 +4,81 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp panel1::l:::x}"
-			"$verticalGroup": "par l {comp panel1::l::551:x}"
+			"$horizontalGroup": "par l {comp panel1::l::1008:x, seq l {space :::p, par l {seq {comp separator1:::::x, space :::p}, seq {comp button5:::p:114:p, space u:::p, comp button6:::p:114:p, space :p:12:p, comp button7:::p:114:p, space :::x, comp button8:::p:106:p, space :p:46:p}}}}"
+			"$verticalGroup": "par l {seq t {space :::p, par b {comp button8::b:p:36:p, comp button6::b:p:37:p, comp button5::b:p:37:p, comp button7::b:p:37:p}, space :::p, comp separator1:::p::p, space :::p, comp panel1:::::x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 3
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:33:p, comp label1:::p:98:p, space ::852:x}}"
-					"$verticalGroup": "par l {seq {space :p:34:p, comp label1:::p:42:p, space ::475:x}}"
+					"$horizontalGroup": "par l {space :0:1008:x}"
+					"$verticalGroup": "par l {space :0:560:x}"
 				} ) {
 					name: "panel2"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label1"
-						"text": "text"
-					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "card1"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:25:p, comp scrollPane1:::p::p, space ::9:x, comp panel4:::p::p, space :::p}}"
-					"$verticalGroup": "par l {seq l {space :p:42:p, par t {comp scrollPane1:::p:484:p, comp panel4:::p::p}, space ::25:x}}"
+					"$horizontalGroup": "par l {seq {par l {seq l {space :p:25:p, comp label5:::p::p}, seq l {space :p:19:p, comp scrollPane1:::p::p, space u:::p, comp panel4:::p::p}}, space ::11:x}}"
+					"$verticalGroup": "par l {seq l {space :p:10:p, comp label5:::p::p, space :p:11:p, par t {comp scrollPane1:::p:484:p, comp panel4:::p::p}, space :p:30:p}}"
 				} ) {
 					name: "panel3"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
 						add( new FormComponent( "javax.swing.JTable" ) {
-							name: "table1"
+							name: "deckTable"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "deckTableClickMousePressed", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq {space :::p, comp label4:::p::p, space :p:24:p, comp textField3:::p:375:p, space ::40:x}, seq t {space ::218:x, comp button1:::p::p, space :p:201:p}}"
-						"$verticalGroup": "par l {seq l {space :p:9:p, par t {comp label4:::p::p, comp textField3:::p::p}, space :p:45:p, comp button1:::p::p, space ::45:x}}"
+						"$horizontalGroup": "par l {seq l {space :p:15:p, par l {seq l {space :p:77:p, comp deckSaveBtn:::p::p, space :p:117:p, comp deckDeleteBtn:::p::p}, seq l {comp label4:::p::p, space :p:24:p, comp deckTextField:::p:375:p}}, space ::64:x}}"
+						"$verticalGroup": "par l {seq l {space :p:15:p, par t {comp label4:::p::p, comp deckTextField:::p::p}, space :p:34:p, par b {comp deckSaveBtn::b:p::p, comp deckDeleteBtn::b:p::p}, space ::53:x}}"
 					} ) {
 						name: "panel4"
 						"border": new javax.swing.border.TitledBorder( "Create" )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "deckSaveBtn"
+							"text": "Save"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deckSaveBtnActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "deckTextField"
+						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label4"
 							"text": "Name"
 						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField3"
-						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button1"
-							"text": "Save"
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+							name: "deckDeleteBtn"
+							"text": "Delete"
+							"enabled": false
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deckDeleteBtn", true ) )
 						} )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label5"
+						"text": "Deck Types"
+						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 4, false )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "card2"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:27:p, comp scrollPane2:::p::p, space :p:38:p, comp panel6:::p::p, space ::14:x}}"
-					"$verticalGroup": "par l {seq l {space :p:36:p, par t {comp scrollPane2:::p::p, comp panel6:::p::p}, space ::66:x}}"
+					"$horizontalGroup": "par l {seq l {space :p:27:p, par l {comp label3::l:p::p, seq l {comp scrollPane2:::p::p, space :::p, comp panel6:::::x}}, space :p:10:p}}"
+					"$verticalGroup": "par l {seq l {space :p:10:p, par t {comp panel6:::p::p, seq {comp label3:::p::p, space :::p, comp scrollPane2:::p:508:p}}, space ::17:x}}"
 				} ) {
 					name: "panel5"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane2"
 						add( new FormComponent( "javax.swing.JTable" ) {
-							name: "table2"
+							name: "userTable"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "userTableMouseClickled", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq {space ::12:x, par l {seq t {comp label6:::p::p, space u:::p, comp textField5:::p:369:p, space :p:23:p}, seq t {comp button2:::p::p, space :p:192:p}}}}"
-						"$verticalGroup": "par l {seq l {space :::p, par b {comp label6::b:p::p, comp textField5::b:p::p}, space ::79:x, comp button2:::p::p, space :p:30:p}}"
+						"$horizontalGroup": "par l {seq {space ::73:x, comp label6:::p::p, space u:::p, comp userTextField:::p:369:p, space :p:23:p}, seq l {space :p:119:p, comp userSave:::p::p, space :p:108:p, comp userDeleteBtn:::p::p, space ::155:x}}"
+						"$verticalGroup": "par l {seq l {space :::p, par b {comp label6::b:p::p, comp userTextField::b:p::p}, space s:::p, par b {comp userSave::b:p::p, comp userDeleteBtn::b:p::p}, space ::36:x}}"
 					} ) {
 						name: "panel6"
 						"border": new javax.swing.border.TitledBorder( "Create" )
@@ -80,54 +87,98 @@ new FormModel {
 							"text": "Name"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField5"
+							name: "userTextField"
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button2"
+							name: "userSave"
 							"text": "Save"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "userSaveBtnActionPerformed", true ) )
 						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "userDeleteBtn"
+							"text": "Delete"
+							"enabled": false
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "userTypesDeleteBtn", true ) )
+						} )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "User Types"
+						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 4, false )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "card3"
 				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:28:p, par l {comp label1:::p::p, seq {comp scrollPane3:::p:429:p, space :::p, comp panel8:::p::p}}, space ::25:x}}"
+					"$verticalGroup": "par l {seq l {space ::11:x, comp label1:::p::p, space u:::p, par t {comp panel8:::p::p, comp scrollPane3:::p:508:p}, space ::11:x}}"
+				} ) {
+					name: "panel7"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "answerTable"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "answerTableClicked", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq {par l {seq l {space :::p, comp label2:::p::p, space u:::p, comp answerTextField:::p:365:p}, seq l {space :p:102:p, comp answerSaveBtn:::p::p, space :p:129:p, comp answerDeleteBtn:::p::p}}, space ::97:x}}"
+						"$verticalGroup": "par l {seq l {space :::p, par b {comp label2::b:p::p, comp answerTextField::b:p::p}, space u:::p, par b {comp answerSaveBtn::b:p::p, comp answerDeleteBtn::b:p::p}, space ::39:x}}"
+					} ) {
+						name: "panel8"
+						"border": new javax.swing.border.TitledBorder( "Create" )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "Name"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "answerTextField"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "answerSaveBtn"
+							"text": "Save"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "answerSaveBtnActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "answerDeleteBtn"
+							"text": "Delete"
+							"enabled": false
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "answerDeleteBtnActionPerformed", true ) )
+						} )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "Answer Types"
+						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 4, false )
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "card4"
+				} )
 			} )
-			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
-				name: "menuBar1"
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "menu1"
-					"text": "text"
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem1"
-						"text": "text"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem2"
-						"text": "text"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem2MouseClicked", true ) )
-					} )
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "menu2"
-					"text": "Gerir"
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem3"
-						"text": "AnswerTypes"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem3MouseClicked", true ) )
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem3MouseClicked", true ) )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem3ActionPerformed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem4"
-						"text": "DeckType"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem4MouseClicked", true ) )
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem4MouseClicked", true ) )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem4ActionPerformed", true ) )
-					} )
-				} )
-			}
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button5"
+				"text": "DeckTypes"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deckTypesBTNActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button6"
+				"text": "User Types"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "userTypesBTN", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button7"
+				"text": "Anwser Types"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "awnserTypesBTNActionPerformed", true ) )
+			} )
+			add( new FormComponent( "com.jformdesigner.designer.wrapper.JGoodiesFormsSeparator" ) {
+				name: "separator1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button8"
+				"text": "Logout"
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 985, 605 )
+			"size": new java.awt.Dimension( 1010, 650 )
 			"location": new java.awt.Point( 225, 60 )
 		} )
 	}

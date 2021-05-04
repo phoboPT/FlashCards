@@ -4,7 +4,10 @@ import sample.Util.Util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserType {
     int key;
@@ -26,7 +29,7 @@ public class UserType {
     public boolean create() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "INSERT INTO public.\"Post\" (name)VALUES ( ?);";
+        String sqlCommand = "INSERT INTO public.\"UserType\" (name)VALUES ( ?);";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
@@ -43,22 +46,73 @@ public class UserType {
         return false;
     }
 
-    public boolean list() {
-
-
-        return false;
+    public int getKey() {
+        return key;
     }
 
-    public boolean update(int key) {
+    public void setKey(int key) {
+        this.key = key;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static List<UserType> list() {
+        Connection conn = Util.criarConexao();
+
+        String sqlCommand = "SELECT * FROM \"UserType\" ORDER BY key ASC ;";
+        List<UserType> data = new ArrayList<>();
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                UserType userType = new UserType(rs.getInt("key"), rs.getString("name"));
+                data.add(userType);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erro" + ex.getMessage());
+        }
+        return data;
+    }
+
+    public static boolean update(int key, String name) {
+        Connection conn = Util.criarConexao();
+
+        String sqlCommand = "UPDATE public.\"UserType\" SET  name= '" + name + "' WHERE key=" + key + ";";
+        System.out.println(sqlCommand);
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error! " + ex.getMessage());
+        }
         return false;
+
     }
 
 
-    public boolean delete(int key) {
+    public static boolean delete(int key) {
 
+        Connection conn = Util.criarConexao();
 
+        String sqlCommand = "DELETE FROM public.\"UserType\"  WHERE key=" + key + ";";
+        System.out.println(sqlCommand);
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error! " + ex.getMessage());
+        }
         return false;
     }
 
@@ -72,5 +126,10 @@ public class UserType {
 
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return key + " - " + name;
     }
 }
