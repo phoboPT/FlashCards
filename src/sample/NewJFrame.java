@@ -240,7 +240,6 @@ public class NewJFrame extends JFrame {
         isAnswerTypeUpdate = true;
         answerTypeKey = userType.getKey();
         answerTextField.setText(userType.getName());
-        
     }
 
     private void answerDeleteBtnActionPerformed(ActionEvent e) {
