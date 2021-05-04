@@ -7,6 +7,7 @@ package sample;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import sample.Database.AnswerType;
 import sample.Database.DeckType;
+import sample.Database.User;
 import sample.Database.UserType;
 
 import javax.swing.*;
@@ -95,7 +96,6 @@ public class NewJFrame extends JFrame {
             return false;
         }
     }
-
 
     private void userTypesBTN(ActionEvent e) {
         //User Button
@@ -266,6 +266,44 @@ public class NewJFrame extends JFrame {
 
     }
 
+    private void loginBtnActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        boolean isLogged = User.login(emailTextField.getText(), paswordTextField.getText());
+
+        if (isLogged) {
+
+            welcomeLbl.setVisible(true);
+            loginBtn.setVisible(false);
+            passwordLbl.setVisible(false);
+            paswordTextField.setVisible(false);
+            emailLbl.setVisible(false);
+            emailTextField.setVisible(false);
+            button5.setVisible(true);
+            button6.setVisible(true);
+            button7.setVisible(true);
+        } else {
+            showMessage("Try again");
+        }
+
+    }
+
+    private void logoutBtnActionPerformed(ActionEvent e) {
+        welcomeLbl.setVisible(false);
+        loginBtn.setVisible(true);
+        passwordLbl.setVisible(true);
+        paswordTextField.setVisible(true);
+        emailLbl.setVisible(true);
+        emailTextField.setVisible(true);
+        button5.setVisible(false);
+        button6.setVisible(false);
+        button7.setVisible(false);
+
+        panel1.removeAll();
+        panel1.add(panel2);
+        panel1.repaint();
+        panel1.revalidate();
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -273,6 +311,12 @@ public class NewJFrame extends JFrame {
         DefaultComponentFactory compFactory = DefaultComponentFactory.getInstance();
         panel1 = new JPanel();
         panel2 = new JPanel();
+        emailTextField = new JTextField();
+        paswordTextField = new JTextField();
+        emailLbl = new JLabel();
+        passwordLbl = new JLabel();
+        loginBtn = new JButton();
+        welcomeLbl = new JLabel();
         panel3 = new JPanel();
         scrollPane1 = new JScrollPane();
         deckTable = new JTable();
@@ -328,15 +372,58 @@ public class NewJFrame extends JFrame {
             //======== panel2 ========
             {
 
+                //---- emailLbl ----
+                emailLbl.setText("Email");
+
+                //---- passwordLbl ----
+                passwordLbl.setText("Password");
+
+                //---- loginBtn ----
+                loginBtn.setText("Login");
+                loginBtn.addActionListener(e -> loginBtnActionPerformed(e));
+
+                //---- welcomeLbl ----
+                welcomeLbl.setText("Welcome");
+                welcomeLbl.setFont(welcomeLbl.getFont().deriveFont(welcomeLbl.getFont().getSize() + 7f));
+
                 GroupLayout panel2Layout = new GroupLayout(panel2);
                 panel2.setLayout(panel2Layout);
                 panel2Layout.setHorizontalGroup(
                         panel2Layout.createParallelGroup()
-                                .addGap(0, 1008, Short.MAX_VALUE)
+                                .addGroup(panel2Layout.createSequentialGroup()
+                                        .addGroup(panel2Layout.createParallelGroup()
+                                                .addGroup(panel2Layout.createSequentialGroup()
+                                                        .addGap(310, 310, 310)
+                                                        .addGroup(panel2Layout.createParallelGroup()
+                                                                .addComponent(passwordLbl)
+                                                                .addComponent(emailLbl)
+                                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(emailTextField, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                                                        .addComponent(paswordTextField, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))))
+                                                .addGroup(panel2Layout.createSequentialGroup()
+                                                        .addGap(436, 436, 436)
+                                                        .addComponent(loginBtn))
+                                                .addGroup(panel2Layout.createSequentialGroup()
+                                                        .addGap(408, 408, 408)
+                                                        .addComponent(welcomeLbl)))
+                                        .addContainerGap(358, Short.MAX_VALUE))
                 );
                 panel2Layout.setVerticalGroup(
                         panel2Layout.createParallelGroup()
-                                .addGap(0, 560, Short.MAX_VALUE)
+                                .addGroup(panel2Layout.createSequentialGroup()
+                                        .addGap(67, 67, 67)
+                                        .addComponent(welcomeLbl)
+                                        .addGap(76, 76, 76)
+                                        .addComponent(emailLbl)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(passwordLbl)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(paswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(68, 68, 68)
+                                        .addComponent(loginBtn)
+                                        .addContainerGap(191, Short.MAX_VALUE))
                 );
             }
             panel1.add(panel2, "card1");
@@ -402,7 +489,7 @@ public class NewJFrame extends JFrame {
                                             .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                     .addComponent(deckSaveBtn)
                                                     .addComponent(deckDeleteBtn))
-                                            .addContainerGap(53, Short.MAX_VALUE))
+                                            .addContainerGap(80, Short.MAX_VALUE))
                     );
                 }
 
@@ -424,7 +511,7 @@ public class NewJFrame extends JFrame {
                                                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                        .addContainerGap(11, Short.MAX_VALUE))
+                                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 panel3Layout.setVerticalGroup(
                         panel3Layout.createParallelGroup()
@@ -500,7 +587,7 @@ public class NewJFrame extends JFrame {
                                             .addGroup(panel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                     .addComponent(userSave)
                                                     .addComponent(userDeleteBtn))
-                                            .addContainerGap(36, Short.MAX_VALUE))
+                                            .addContainerGap(17, Short.MAX_VALUE))
                     );
                 }
 
@@ -585,7 +672,7 @@ public class NewJFrame extends JFrame {
                                                             .addComponent(answerSaveBtn)
                                                             .addGap(129, 129, 129)
                                                             .addComponent(answerDeleteBtn)))
-                                            .addContainerGap(97, Short.MAX_VALUE))
+                                            .addContainerGap(99, Short.MAX_VALUE))
                     );
                     panel8Layout.setVerticalGroup(
                             panel8Layout.createParallelGroup()
@@ -598,7 +685,7 @@ public class NewJFrame extends JFrame {
                                             .addGroup(panel8Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                     .addComponent(answerSaveBtn)
                                                     .addComponent(answerDeleteBtn))
-                                            .addContainerGap(39, Short.MAX_VALUE))
+                                            .addContainerGap(45, Short.MAX_VALUE))
                     );
                 }
 
@@ -618,18 +705,18 @@ public class NewJFrame extends JFrame {
                                                         .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 429, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(panel8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                        .addContainerGap(25, Short.MAX_VALUE))
+                                        .addContainerGap(23, Short.MAX_VALUE))
                 );
                 panel7Layout.setVerticalGroup(
                         panel7Layout.createParallelGroup()
                                 .addGroup(panel7Layout.createSequentialGroup()
-                                        .addContainerGap(11, Short.MAX_VALUE)
+                                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(label1)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                 .addComponent(panel8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 508, GroupLayout.PREFERRED_SIZE))
-                                        .addContainerGap(11, Short.MAX_VALUE))
+                                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
             }
             panel1.add(panel7, "card4");
@@ -637,18 +724,22 @@ public class NewJFrame extends JFrame {
 
         //---- button5 ----
         button5.setText("DeckTypes");
+        button5.setVisible(false);
         button5.addActionListener(e -> deckTypesBTNActionPerformed(e));
 
         //---- button6 ----
         button6.setText("User Types");
+        button6.setVisible(false);
         button6.addActionListener(e -> userTypesBTN(e));
 
         //---- button7 ----
         button7.setText("Anwser Types");
+        button7.setVisible(false);
         button7.addActionListener(e -> awnserTypesBTNActionPerformed(e));
 
         //---- button8 ----
         button8.setText("Logout");
+        button8.addActionListener(e -> logoutBtnActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -695,6 +786,12 @@ public class NewJFrame extends JFrame {
     // Generated using JFormDesigner Evaluation license - unknown
     private JPanel panel1;
     private JPanel panel2;
+    private JTextField emailTextField;
+    private JTextField paswordTextField;
+    private JLabel emailLbl;
+    private JLabel passwordLbl;
+    private JButton loginBtn;
+    private JLabel welcomeLbl;
     private JPanel panel3;
     private JScrollPane scrollPane1;
     private JTable deckTable;

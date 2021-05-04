@@ -80,6 +80,7 @@ public class UserType {
         }
         return data;
     }
+    
 
     public static boolean update(int key, String name) {
         Connection conn = Util.criarConexao();
