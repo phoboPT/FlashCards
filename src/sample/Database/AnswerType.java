@@ -69,23 +69,17 @@ public class AnswerType {
 
                 data.add(answer);
             }
-
-
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
         }
 
-
         return data;
-
-
     }
 
     public static boolean update(int key, String name) {
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "UPDATE public.\"AnswerType\" SET  name= '" + name + "' WHERE key=" + key + ";";
-        System.out.println(sqlCommand);
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
@@ -103,7 +97,6 @@ public class AnswerType {
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "DELETE FROM public.\"AnswerType\"  WHERE key=" + key + ";";
-        System.out.println(sqlCommand);
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
