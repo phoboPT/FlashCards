@@ -16,7 +16,6 @@ public class User {
     String password;
     int type;
 
-
     public User() {
         this.key = 0;
         this.name = "";
@@ -76,10 +75,7 @@ public class User {
             System.out.println("erro" + ex.getMessage());
         }
 
-
         return allUsers;
-
-
     }
 
     public boolean update(int key) {
@@ -149,15 +145,12 @@ public class User {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
 
-
                 return true;
             }
 
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
         }
-
-
         return false;
     }
 

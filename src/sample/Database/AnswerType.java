@@ -62,23 +62,15 @@ public class AnswerType {
         List<AnswerType> data = new ArrayList<>();
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
-
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 AnswerType answer = new AnswerType(rs.getInt("key"), rs.getString("name"));
-
                 data.add(answer);
             }
-
-
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
         }
-
-
         return data;
-
-
     }
 
     public static boolean update(int key, String name) {
