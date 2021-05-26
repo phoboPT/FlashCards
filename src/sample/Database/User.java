@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class User {
     int key;
@@ -135,7 +136,7 @@ public class User {
     public static boolean login(String email, String password) {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "SELECT * FROM \"User\" WHERE email LIKE ? and password LIKE ?;";
+        String sqlCommand = "SELECT * FROM \"User\" WHERE email = ? and password = ?;";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
