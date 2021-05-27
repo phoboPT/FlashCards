@@ -100,10 +100,7 @@ public class User {
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
         }
-
-
         return false;
-
     }
 
     public boolean searchByKey(int key) {

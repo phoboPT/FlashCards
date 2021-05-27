@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.10" encoding: "UTF-8"
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9.1" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp panel1::l::1008:x, seq l {space :::p, par l {seq {comp separator1:::::x, space :::p}, seq {comp button5:::p:114:p, space u:::p, comp button6:::p:114:p, space :p:12:p, comp button7:::p:114:p, space :::x, comp button8:::p:106:p, space :p:46:p}}}}"
-			"$verticalGroup": "par l {seq t {space :::p, par b {comp button8::b:p:36:p, comp button6::b:p:37:p, comp button5::b:p:37:p, comp button7::b:p:37:p}, space :::p, comp separator1:::p::p, space :::p, comp panel1:::::x}}"
+			"$horizontalGroup": "par l {comp panel1::l::1008:x, seq l {space :::p, par l {seq {comp separator1:::::x, space :::p}, seq {comp button5:::p:114:p, space u:::p, comp button6:::p:114:p, space :p:12:p, comp button7:::p:114:p, space :::x, comp logoutBtn:::p:106:p, space :p:46:p}}}}"
+			"$verticalGroup": "par l {seq t {space :::p, par b {comp logoutBtn::b:p:36:p, comp button6::b:p:37:p, comp button5::b:p:37:p, comp button7::b:p:37:p}, space :::p, comp separator1:::p::p, space :::p, comp panel1:::::x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 3
@@ -13,7 +13,7 @@ new FormModel {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq {par l {seq l {space :p:310:p, par l {comp passwordLbl:::p::p, comp emailLbl:::p::p, par l:::p {comp emailTextField::::340:x, comp paswordTextField::::340:x}}}, seq l {space :p:436:p, comp loginBtn:::p::p}, seq l {space :p:408:p, comp welcomeLbl:::p::p}}, space ::358:x}}"
-					"$verticalGroup": "par l {seq l {space :p:67:p, comp welcomeLbl:::p::p, space :p:76:p, comp emailLbl:::p::p, space u:::p, comp emailTextField:::p::p, space :p:28:p, comp passwordLbl:::p::p, space :::p, comp paswordTextField:::p::p, space :p:68:p, comp loginBtn:::p::p, space ::191:x}}"
+					"$verticalGroup": "par l {seq l {space :p:67:p, comp welcomeLbl:::p::p, space :p:76:p, comp emailLbl:::p::p, space u:::p, comp emailTextField:::p::p, space :p:28:p, comp passwordLbl:::p::p, space :::p, comp paswordTextField:::p::p, space :p:68:p, comp loginBtn:::p::p, space ::198:x}}"
 				} ) {
 					name: "panel2"
 					add( new FormComponent( "javax.swing.JTextField" ) {
@@ -90,7 +90,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq l {space :p:27:p, par l {comp label3::l:p::p, seq l {comp scrollPane2:::p::p, space :::p, comp panel6:::::x}}, space :p:10:p}}"
-					"$verticalGroup": "par l {seq l {space :p:10:p, par t {comp panel6:::p::p, seq {comp label3:::p::p, space :::p, comp scrollPane2:::p:508:p}}, space ::17:x}}"
+					"$verticalGroup": "par l {seq l {space :p:10:p, par t {comp panel6:::p::p, seq {comp label3:::p::p, space :::p, comp scrollPane2:::p:508:p}}, space ::57:x}}"
 				} ) {
 					name: "panel5"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -101,7 +101,7 @@ new FormModel {
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq {space ::73:x, comp label6:::p::p, space u:::p, comp userTextField:::p:369:p, space :p:23:p}, seq l {space :p:119:p, comp userSave:::p::p, space :p:108:p, comp userDeleteBtn:::p::p, space ::155:x}}"
+						"$horizontalGroup": "par l {seq {space ::67:x, comp label6:::p::p, space u:::p, comp userTextField:::p:369:p, space :p:23:p}, seq l {space :p:119:p, comp userSave:::p::p, space :p:108:p, comp userDeleteBtn:::p::p, space ::120:x}}"
 						"$verticalGroup": "par l {seq l {space :::p, par b {comp label6::b:p::p, comp userTextField::b:p::p}, space s:::p, par b {comp userSave::b:p::p, comp userDeleteBtn::b:p::p}, space ::17:x}}"
 					} ) {
 						name: "panel6"
@@ -134,7 +134,7 @@ new FormModel {
 					"value": "card3"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:28:p, par l {comp label1:::p::p, seq {comp scrollPane3:::p:429:p, space :::p, comp panel8:::p::p}}, space ::23:x}}"
+					"$horizontalGroup": "par l {seq l {space :p:28:p, par l {comp label1:::p::p, seq {comp scrollPane3:::p:429:p, space :::p, comp panel8:::p::p}}, space ::21:x}}"
 					"$verticalGroup": "par l {seq l {space :::x, comp label1:::p::p, space u:::p, par t {comp panel8:::p::p, comp scrollPane3:::p:508:p}, space :::x}}"
 				} ) {
 					name: "panel7"
@@ -201,8 +201,9 @@ new FormModel {
 				name: "separator1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button8"
+				name: "logoutBtn"
 				"text": "Logout"
+				"visible": false
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "logoutBtnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {

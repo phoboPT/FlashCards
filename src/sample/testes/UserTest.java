@@ -7,21 +7,26 @@ import sample.Database.Discipline;
 import sample.Database.User;
 
 
-public class Teste {
+public class UserTest {
     @Test
     @DisplayName("Login with valid credentials")
-    public void testLogin() {
+    public void validLogin() {
         boolean user = User.login("admin", "admin");
         Assertions.assertTrue(user);
-
-
     }
 
     @Test
     @DisplayName("Login with invalid credentials")
-    public void testLoginFalse() {
-        boolean user = User.login("admindsfsdf", "admindsds");
+    public void wrongLogin() {
+        boolean user = User.login("", "");
         Assertions.assertFalse(user);
+    }
+
+    @Test
+    @DisplayName("Delete user account")
+    public void deleteAccount() {
+        boolean user = User.delete(4);
+        Assertions.assertTrue(user);
     }
 
     @Test
