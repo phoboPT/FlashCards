@@ -2,10 +2,7 @@ package sample.Database;
 
 import sample.Util.Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class User {
     public boolean create() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "INSERT INTO public.\"User\"(name, email, password, type)VALUES ( ?, ?, ?, ?);";
+        String sqlCommand = "INSERT INTO public.\"User\"(name, email, password, type)VALUES ( ?, ?, ?, ?)RETURNING *;";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
@@ -46,16 +43,14 @@ public class User {
             st.setString(2, this.email);
             st.setString(3, this.password);
             st.setInt(4, this.type);
-            st.execute();
 
-            ResultSet rs = st.getGeneratedKeys();
-
+            ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                this.key = rs.getInt(1);
-               
+                this.key = rs.getInt(2);
+                return true;
             }
-            return true;
+            return false;
 
         } catch (SQLException ex) {
             System.out.println("Error! " + ex.getMessage());
@@ -73,49 +68,41 @@ public class User {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getInt("key"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getInt("type"));
-
+                User user = new User(
+                        rs.getInt("key"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getInt("type")
+                );
                 allUsers.add(user);
             }
-
-
         } catch (SQLException ex) {
-            System.out.println("erro" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
-
         return allUsers;
     }
 
     public boolean update(int key) {
-
-
         return false;
     }
 
 
     public boolean delete(int key) {
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "DELETE FROM \"User\" WHERE key = ?;";
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setInt(1, key);
-            st.execute();
+            int resultado = st.executeUpdate();
 
-            User user = this.searchByKey(key);
-            if (user.name != "") {
-                System.out.println("entra if");
-                return true;
-            }
-            System.out.println("fora if");
-            return false;
+            //verifica se for eliminado com sucesso
+            return resultado == 1;
+
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
             return false;
         }
-
-
     }
 
     public User searchByKey(int key) {
@@ -202,6 +189,18 @@ public class User {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getType() {
+        return type;
+    }
+
     public void setKey(int key) {
         this.key = key;
     }
@@ -222,15 +221,5 @@ public class User {
         this.type = type;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public int getType() {
-        return type;
-    }
 }

@@ -23,34 +23,33 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Delete user account that dont exist")
-    public void deleteAccountBad() {
+    @DisplayName("Delete User - Wrong Data")
+    public void wrongDelete() {
         User user = new User();
-        boolean deleted = user.delete(10);
-        System.out.println(user);
+        boolean deleted = user.delete(999);
         Assertions.assertFalse(deleted);
     }
 
     @Test
-    @DisplayName("Delete user account that  exist")
-    public void deleteAccountGood() {
+    @DisplayName("Delete User")
+    public void validDelete() {
         User user = new User();
-        user.setEmail("testsdfds");
-        user.setName("new");
-        user.setPassword("asdasd");
+        user.setEmail("testUser");
+        user.setName("testUser");
+        user.setPassword("testUser");
         user.setType(1);
         user.create();
+
         boolean deleted = user.delete(user.getKey());
-        System.out.println(user);
         Assertions.assertTrue(deleted);
     }
 
-    @Test
-    @DisplayName("Test decks")
-    public void testDecks() {
-        Discipline discipline = Discipline.getByKey(5);
-        Assertions.assertEquals("M", discipline.getCourse());
-    }
+//    @Test
+//    @DisplayName("Test decks")
+//    public void testDecks() {
+//        Discipline discipline = Discipline.getByKey(5);
+//        Assertions.assertEquals("M", discipline.getCourse());
+//    }
 
 
 }

@@ -31,7 +31,7 @@ public class DisciplineUser {
     public boolean create() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "INSERT INTO public.\"DisciplineUser\"(disciplineKey, userKey)VALUES ( ?, ?);";
+        String sqlCommand = "INSERT INTO public.\"DisciplineUser\"(disciplineKey, userKey)VALUES ( ?, ?) RETURNING *;";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
@@ -39,32 +39,24 @@ public class DisciplineUser {
             // Verifica se existe o utilizador e disciplina
             User user = new User().searchByKey(this.user);
             Discipline discipline = Discipline.getByKey(this.discipline);
-            System.out.println("teste" + discipline.name + user.name);
 
             if (user.name == "" || discipline.name == "") {
-                System.out.println("entra 1");
                 return false;
             }
 
             st.setInt(1, this.discipline);
             st.setInt(2, this.user);
-            st.execute();
 
-            ResultSet rs = st.getGeneratedKeys();
+            ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                System.out.println("entra 2");
                 this.key = rs.getInt(1);
             }
 
-            if (this.key > 0) {
-                System.out.println("entra 3");
-                return true;
-            }
-            return false;
+            return this.key > 0;
 
         } catch (SQLException ex) {
-            System.out.println("Error! " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
         return false;
     }
@@ -74,22 +66,34 @@ public class DisciplineUser {
     }
 
     public boolean update(int key) {
+
         return false;
     }
 
 
     public boolean delete(int key) {
-        return false;
-    }
+        Connection conn = Util.criarConexao();
 
-    public boolean getByKey(int key) {
-        return false;
-    }
+        String sqlCommand = "DELETE FROM public.\"DisciplineUser\" WHERE key = ? RETURNING *;";
 
-    public boolean getByName(String name) {
-        return false;
-    }
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.setInt(1, key);
 
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("apaga");
+                return true;
+            }
+            System.out.println("fora if");
+            return false;
+        } catch (SQLException ex) {
+            System.out.println("erro" + ex.getMessage());
+            return false;
+        }
+
+    }
 
     public void setDiscipline(int discipline) {
         this.discipline = discipline;
