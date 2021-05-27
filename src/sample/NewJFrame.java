@@ -5,10 +5,7 @@
 package sample;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import sample.Database.AnswerType;
-import sample.Database.DeckType;
-import sample.Database.User;
-import sample.Database.UserType;
+import sample.Database.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -281,6 +278,7 @@ public class NewJFrame extends JFrame {
             button7.setVisible(true);
             logoutBtn.setVisible(true);
         } else {
+
             JOptionPane.showMessageDialog(null, "Username or password is incorrect!","Incorrect Login", JOptionPane.INFORMATION_MESSAGE);
         }
     }

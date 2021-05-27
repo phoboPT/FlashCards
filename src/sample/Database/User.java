@@ -50,6 +50,7 @@ public class User {
 
             ResultSet rs = st.getGeneratedKeys();
 
+
             if (rs.next()) {
                 this.key = rs.getInt(1);
                
@@ -104,9 +105,10 @@ public class User {
 
             User user = this.searchByKey(key);
             if (user.name != "") {
+                System.out.println("entra if");
                 return true;
             }
-
+            System.out.println("fora if");
             return false;
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
@@ -155,12 +157,12 @@ public class User {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-
                 return true;
             }
 
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
+
         }
         return false;
     }
