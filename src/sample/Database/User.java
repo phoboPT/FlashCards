@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class User {
     int key;
@@ -86,7 +85,7 @@ public class User {
     }
 
 
-    public static boolean delete(int key) {
+    public boolean delete(int key) {
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "DELETE FROM \"User\" WHERE key = ?;";
@@ -96,17 +95,21 @@ public class User {
             st.setInt(1, key);
             st.execute();
 
-            return true;
+            User user = this.searchByKey(key);
+            if (user.name != "") {
+                return true;
+            }
+
+            return false;
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
+            return false;
         }
 
 
-        return false;
-
     }
 
-    public boolean searchByKey(int key) {
+    public User searchByKey(int key) {
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "SELECT * FROM \"User\" WHERE key = ?;";
@@ -124,13 +127,13 @@ public class User {
                 this.type = rs.getInt("type");
             }
 
-            return true;
+            return this;
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
         }
 
 
-        return false;
+        return null;
     }
 
     public static boolean login(String email, String password) {

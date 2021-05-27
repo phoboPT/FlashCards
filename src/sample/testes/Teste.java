@@ -30,4 +30,14 @@ public class Teste {
         Discipline discipline = Discipline.getByKey(5);
         Assertions.assertEquals("M", discipline.getCourse());
     }
+
+
+    @Test
+    @DisplayName("Test decks")
+    public void testUser() {
+        User user = new User();
+        boolean deleted = user.delete(10);
+        System.out.println(user);
+        Assertions.assertTrue(deleted);
+    }
 }
