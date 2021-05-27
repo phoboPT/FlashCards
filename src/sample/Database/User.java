@@ -47,6 +47,13 @@ public class User {
             st.setString(3, this.password);
             st.setInt(4, this.type);
             st.execute();
+
+            ResultSet rs = st.getGeneratedKeys();
+
+            if (rs.next()) {
+                this.key = rs.getInt(1);
+               
+            }
             return true;
 
         } catch (SQLException ex) {

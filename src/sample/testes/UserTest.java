@@ -23,10 +23,26 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Delete user account")
-    public void deleteAccount() {
-        boolean user = User.delete(4);
-        Assertions.assertTrue(user);
+    @DisplayName("Delete user account that dont exist")
+    public void deleteAccountBad() {
+        User user = new User();
+        boolean deleted = user.delete(10);
+        System.out.println(user);
+        Assertions.assertFalse(deleted);
+    }
+
+    @Test
+    @DisplayName("Delete user account that  exist")
+    public void deleteAccountGood() {
+        User user = new User();
+        user.setEmail("testsdfds");
+        user.setName("new");
+        user.setPassword("asdasd");
+        user.setType(1);
+        user.create();
+        boolean deleted = user.delete(user.getKey());
+        System.out.println(user);
+        Assertions.assertTrue(deleted);
     }
 
     @Test
@@ -37,12 +53,4 @@ public class UserTest {
     }
 
 
-    @Test
-    @DisplayName("Test decks")
-    public void testUser() {
-        User user = new User();
-        boolean deleted = user.delete(10);
-        System.out.println(user);
-        Assertions.assertTrue(deleted);
-    }
 }
