@@ -65,11 +65,6 @@ public class DisciplineUser {
         return false;
     }
 
-    public boolean update(int key) {
-
-        return false;
-    }
-
 
     public boolean delete(int key) {
         Connection conn = Util.criarConexao();

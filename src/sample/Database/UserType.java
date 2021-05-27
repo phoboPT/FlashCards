@@ -13,31 +13,32 @@ public class UserType {
     int key;
     String name;
 
-
     public UserType() {
         this.key = 0;
         this.name = "";
     }
 
-
     public UserType(int key, String name) {
         this.key = key;
         this.name = name;
-
     }
 
     public boolean create() {
         Connection conn = Util.criarConexao();
 
-        String sqlCommand = "INSERT INTO public.\"UserType\" (name)VALUES ( ?);";
+        String sqlCommand = "INSERT INTO public.\"UserType\" (name)VALUES ( ?) RETURNING *;";
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
-
             st.setString(1, this.name);
 
+            ResultSet rs = st.executeQuery();
 
-            st.execute();
+            if (rs.next()) {
+                this.key = rs.getInt(1);
+                return true;
+            }
+
             return true;
 
         } catch (SQLException ex) {
@@ -80,7 +81,7 @@ public class UserType {
         }
         return data;
     }
-    
+
 
     public static boolean update(int key, String name) {
         Connection conn = Util.criarConexao();
@@ -104,9 +105,22 @@ public class UserType {
 
         Connection conn = Util.criarConexao();
 
+        //VER OS UTILIZADORES que tem user type
+        String sqlCommand2 = "SELECT COUNT(key) contador FROM public.\"User\" WHERE type=" + key + " ;";
+
         String sqlCommand = "DELETE FROM public.\"UserType\"  WHERE key=" + key + ";";
         System.out.println(sqlCommand);
         try {
+            PreparedStatement ps = conn.prepareStatement(sqlCommand2);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+
+            //teste ao contador
+            if (rs.getInt("contador") > 0) {
+                return false;
+            }
+
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
             return true;
