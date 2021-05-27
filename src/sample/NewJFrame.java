@@ -270,7 +270,6 @@ public class NewJFrame extends JFrame {
         boolean isLogged = User.login(emailTextField.getText(), paswordTextField.getText());
 
         if (isLogged) {
-
             welcomeLbl.setVisible(true);
             loginBtn.setVisible(false);
             passwordLbl.setVisible(false);
@@ -282,9 +281,8 @@ public class NewJFrame extends JFrame {
             button7.setVisible(true);
             logoutBtn.setVisible(true);
         } else {
-            showMessage("Try again");
+            JOptionPane.showMessageDialog(null, "Username or password is incorrect!","Incorrect Login", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }
 
     private void logoutBtnActionPerformed(ActionEvent e) {
