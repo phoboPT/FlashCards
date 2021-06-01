@@ -3,10 +3,12 @@ package sample.testes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sample.Database.User;
 import sample.Database.UserType;
 
 public class UserTypeTest {
+    /**
+     * DELETE
+     */
     @Test
     @DisplayName("Delete UserType - Wrong Data")
     public void cantDeleteUserType() {
@@ -24,4 +26,7 @@ public class UserTypeTest {
         boolean deleted = userType.delete(userType.getKey());
         Assertions.assertTrue(deleted);
     }
+    /**
+     * CREATE
+     */
 }

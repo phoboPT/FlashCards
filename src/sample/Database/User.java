@@ -37,6 +37,16 @@ public class User {
 
         String sqlCommand = "INSERT INTO public.\"User\"(name, email, password, type)VALUES ( ?, ?, ?, ?)RETURNING *;";
 
+        if (this.email == "" || this.password == "" || this.name == "") {
+            return false;
+        }
+
+        UserType ut = new UserType().getByKey(this.type);
+
+        if (ut.name.equals("")) {
+            return false;
+        }
+
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setString(1, this.name);
@@ -84,6 +94,19 @@ public class User {
     }
 
     public boolean update(int key) {
+        Connection conn = Util.criarConexao();
+
+        String sqlCommand = "UPDATE public.\"User\" SET email='" + email + "', name='" + name + "', password='" + password + "', " +
+                "type='"+type+"' WHERE key ='"+key+"';";
+        System.out.println(sqlCommand);
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error! " + ex.getMessage());
+        }
         return false;
     }
 
@@ -121,6 +144,7 @@ public class User {
                 this.name = rs.getString("name");
                 this.email = rs.getString("email");
                 this.type = rs.getInt("type");
+                this.password = rs.getString("password");
             }
 
             return this;

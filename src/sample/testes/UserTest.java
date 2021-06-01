@@ -8,6 +8,10 @@ import sample.Database.User;
 
 
 public class UserTest {
+
+    /**
+     * LOGIN
+     */
     @Test
     @DisplayName("Login with valid credentials")
     public void validLogin() {
@@ -22,6 +26,9 @@ public class UserTest {
         Assertions.assertFalse(user);
     }
 
+    /**
+     * DELETE
+     */
     @Test
     @DisplayName("Delete User - Wrong Data")
     public void wrongDelete() {
@@ -44,12 +51,86 @@ public class UserTest {
         Assertions.assertTrue(deleted);
     }
 
-//    @Test
-//    @DisplayName("Test decks")
-//    public void testDecks() {
-//        Discipline discipline = Discipline.getByKey(5);
-//        Assertions.assertEquals("M", discipline.getCourse());
-//    }
+    /**
+     * CREATE
+     */
+    @Test
+    @DisplayName("Valid user create")
+    public void validCreate() {
+        User user = new User();
+        user.setEmail("teste@t.pt");
+        user.setName("UserTeste");
+        user.setPassword("pw");
+        user.setType(2);
+        boolean created = user.create();
+        Assertions.assertTrue(created);
+    }
+
+    @Test
+    @DisplayName("Invalid user type - create")
+    public void invalidTypeCreate() {
+        User user = new User();
+        user.setEmail("teste@t.pt");
+        user.setName("UserTeste");
+        user.setPassword("pw");
+        user.setType(200);
+        boolean created = user.create();
+        Assertions.assertFalse(created);
+    }
+
+    @Test
+    @DisplayName("Invalid Email - create")
+    public void invalidEmailCreate() {
+        User user = new User();
+        user.setEmail("");
+        user.setName("dsadsa");
+        user.setPassword("pw");
+        user.setType(1);
+        boolean created = user.create();
+        Assertions.assertFalse(created);
+    }
+
+    /**
+     * UPDATE
+     */
+
+    @Test
+    @DisplayName("Update User")
+    public void validUpdateUser() {
+        User user = new User();
+        user.setEmail("banana");
+        user.setName("dsadsa");
+        user.setPassword("pw");
+        user.setType(1);
+        user.create();
+
+        user.setName("nome2");
+        user.setEmail("email2");
+        user.setPassword("pass2");
+        user.setType(2);
+
+        boolean updated = user.update(user.getKey());
+
+        boolean didUpate = true;
+        if (updated) {
+            User updatedUser = new User().searchByKey(user.getKey());
+            if (!updatedUser.getName().equals(user.getName())) {
+                didUpate = false;
+            }
+            if (!updatedUser.getEmail().equals(user.getEmail())) {
+                didUpate = false;
+            }
+
+            if (!updatedUser.getPassword().equals(user.getPassword())) {
+                System.out.println(updatedUser.getPassword() + " - " + user.getPassword());
+                didUpate = false;
+            }
+            if (updatedUser.getType() != user.getType()) {
+                didUpate = false;
+            }
+        }
+        Assertions.assertTrue(didUpate);
+    }
 
 
 }

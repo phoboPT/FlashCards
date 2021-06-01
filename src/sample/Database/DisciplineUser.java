@@ -77,12 +77,7 @@ public class DisciplineUser {
 
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
-                System.out.println("apaga");
-                return true;
-            }
-            System.out.println("fora if");
-            return false;
+            return rs.next();
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
             return false;
