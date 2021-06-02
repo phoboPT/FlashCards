@@ -33,20 +33,16 @@ public class User {
     }
 
     public boolean create() {
-        Connection conn = Util.criarConexao();
-
-        String sqlCommand = "INSERT INTO public.\"User\"(name, email, password, type)VALUES ( ?, ?, ?, ?)RETURNING *;";
-
         if (this.email == "" || this.password == "" || this.name == "") {
             return false;
         }
+        Connection conn = Util.criarConexao();
+        String sqlCommand = "INSERT INTO public.\"User\"(name, email, password, type)VALUES ( ?, ?, ?, ?)RETURNING *;";
 
         UserType ut = new UserType().getByKey(this.type);
-
         if (ut.name.equals("")) {
             return false;
         }
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setString(1, this.name);
@@ -55,13 +51,11 @@ public class User {
             st.setInt(4, this.type);
 
             ResultSet rs = st.executeQuery();
-
             if (rs.next()) {
                 this.key = rs.getInt(2);
                 return true;
             }
             return false;
-
         } catch (SQLException ex) {
             System.out.println("Error! " + ex.getMessage());
         }
@@ -95,7 +89,6 @@ public class User {
 
     public boolean update(int key) {
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "UPDATE public.\"User\" SET email='" + email + "', name='" + name + "', password='" + password + "', " +
                 "type='"+type+"' WHERE key ='"+key+"';";
         System.out.println(sqlCommand);
@@ -121,7 +114,6 @@ public class User {
 
             //verifica se for eliminado com sucesso
             return resultado == 1;
-
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
             return false;
@@ -158,9 +150,7 @@ public class User {
 
     public static boolean login(String email, String password) {
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "SELECT * FROM \"User\" WHERE email = ? and password = ?;";
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setString(1, email);
@@ -170,10 +160,8 @@ public class User {
             if (rs.next()) {
                 return true;
             }
-
         } catch (SQLException ex) {
             System.out.println("erro" + ex.getMessage());
-
         }
         return false;
     }

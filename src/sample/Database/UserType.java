@@ -26,26 +26,20 @@ public class UserType {
 
     public boolean create() {
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "INSERT INTO public.\"UserType\" (name)VALUES ( ?) RETURNING *;";
 
         if (this.name=="") {
             return false;
         }
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setString(1, this.name);
-
             ResultSet rs = st.executeQuery();
-
             if (rs.next()) {
                 this.key = rs.getInt(1);
                 return true;
             }
-
             return true;
-
         } catch (SQLException ex) {
             System.out.println("Error! " + ex.getMessage());
         }
@@ -94,38 +88,28 @@ public class UserType {
             return false;
         }
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "UPDATE public.\"UserType\" SET  name= '" + name + "' WHERE key=" + key + ";";
         System.out.println(sqlCommand);
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
             return true;
-
         } catch (SQLException ex) {
             System.out.println("Error! " + ex.getMessage());
         }
         return false;
-
     }
 
 
     public static boolean delete(int key) {
-
         Connection conn = Util.criarConexao();
-
         //VER OS UTILIZADORES que tem user type
         String sqlCommand2 = "SELECT COUNT(key) contador FROM public.\"User\" WHERE type=" + key + " ;";
-
         String sqlCommand = "DELETE FROM public.\"UserType\"  WHERE key=" + key + ";";
-        System.out.println(sqlCommand);
         try {
             PreparedStatement ps = conn.prepareStatement(sqlCommand2);
             ResultSet rs = ps.executeQuery();
-
             rs.next();
-
             //teste ao contador
             if (rs.getInt("contador") > 0) {
                 return false;
@@ -134,7 +118,6 @@ public class UserType {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
             return true;
-
         } catch (SQLException ex) {
             System.out.println("Error! " + ex.getMessage());
         }

@@ -60,7 +60,7 @@ public class DisciplineUserTest {
     }
 
     @Test
-    @DisplayName("Valid delete")
+    @DisplayName("Invalid delete")
     public void invalidDelete() {
         DisciplineUser du = new DisciplineUser();
         du.setUser(1);

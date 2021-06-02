@@ -62,7 +62,7 @@ public class UserTypeTest {
         ut.setName("teste");
         ut.create();
 
-        boolean updated = UserType.update(ut.getKey(), "testeModificado");
+        boolean updated = UserType.updatDe(ut.getKey(), "testeModificado");
         boolean didUpate = true;
         if (updated) {
             UserType updatedUserType = new UserType().getByKey(ut.getKey());
@@ -70,7 +70,6 @@ public class UserTypeTest {
             if (updatedUserType.getName().equals(ut.getName())) {
                 didUpate = false;
             }
-
             Assertions.assertTrue(didUpate);
         }
     }

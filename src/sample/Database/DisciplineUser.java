@@ -32,9 +32,7 @@ public class DisciplineUser {
 
     public boolean create() {
         Connection conn = Util.criarConexao();
-
         String sqlCommand = "INSERT INTO public.\"DisciplineUser\"(disciplineKey, userKey)VALUES ( ?, ?) RETURNING *;";
-
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
 
@@ -45,18 +43,14 @@ public class DisciplineUser {
             if (user.name == "" || discipline.name == "") {
                 return false;
             }
-
             st.setInt(1, this.discipline);
             st.setInt(2, this.user);
-
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 this.key = rs.getInt(1);
             }
-
             return this.key > 0;
-
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
