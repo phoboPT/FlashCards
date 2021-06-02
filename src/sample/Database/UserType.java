@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserType {
     int key;
     String name;
@@ -27,6 +28,10 @@ public class UserType {
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "INSERT INTO public.\"UserType\" (name)VALUES ( ?) RETURNING *;";
+
+        if (this.name=="") {
+            return false;
+        }
 
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
@@ -84,10 +89,15 @@ public class UserType {
 
 
     public static boolean update(int key, String name) {
+        if (name=="") {
+            System.out.println("vazio");
+            return false;
+        }
         Connection conn = Util.criarConexao();
 
         String sqlCommand = "UPDATE public.\"UserType\" SET  name= '" + name + "' WHERE key=" + key + ";";
         System.out.println(sqlCommand);
+
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.execute();
@@ -131,16 +141,27 @@ public class UserType {
         return false;
     }
 
-    public boolean getByKey(int key) {
+    public UserType getByKey(int key) {
+        Connection conn = Util.criarConexao();
 
+        String sqlCommand = "SELECT * FROM \"UserType\" WHERE key = ?;";
 
-        return false;
-    }
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlCommand);
+            st.setInt(1, key);
 
-    public boolean getByName(String name) {
+            ResultSet rs = st.executeQuery();
 
+            if (rs.next()) {
+                this.key = rs.getInt("key");
+                this.name = rs.getString("name");
+            }
 
-        return false;
+            return this;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     @Override
