@@ -130,7 +130,7 @@ public class Discipline {
                 discipline.setCourseKey(rs.getInt("course"));
                 discipline.setYear(rs.getString("year"));
 
-                discipline.setCourse(Course.getByKey(discipline.getCourseKey()).getName());
+                discipline.setCourse(Degree.getByKey(discipline.getCourseKey()).getName());
             }
 
             return discipline;

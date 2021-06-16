@@ -16,16 +16,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * @author Hugo
  */
 
 public class NewJFrame extends JFrame {
 
-    boolean isDeckTypeUpdate = false;
+    boolean isDegreeUpdate = false;
     boolean isUserTypeUpdate = false;
     boolean isAnswerTypeUpdate = false;
-    int deckTypeKey;
+    int DegreeKey;
     int userTypeKey;
     int answerTypeKey;
 
@@ -49,19 +51,19 @@ public class NewJFrame extends JFrame {
         }
     }
 
-    private void PopulateTableDeck() {
-        List<DeckType> allData = DeckType.list();
+    private void PopulateTableDegree() {
+        List<Degree> allData = Degree.list();
 
-        DefaultTableModel model_d = new DefaultTableModel(new Object[]{"ID", "Name"}, 0);
+        DefaultTableModel model_d = new DefaultTableModel(new Object[]{"ID", "Name", "Grade"}, 0);
         //Adiciona os medicamentos na tablela
         try {
-            for (DeckType data : allData) {
-                model_d.addRow(new Object[]{data.getKey(), data.getName()});
+            for (Degree data : allData) {
+                model_d.addRow(new Object[]{data.getKey(), data.getName(), data.getGrade()});
             }
-            deckTable.setModel(model_d);
+            degreeTable.setModel(model_d);
 
-            isDeckTypeUpdate = false;
-            deckTypeKey = 0;
+            isDegreeUpdate = false;
+            DegreeKey = 0;
             userDeleteBtn.setEnabled(false);
         } catch (
                 IndexOutOfBoundsException error) {
@@ -120,59 +122,70 @@ public class NewJFrame extends JFrame {
     }
 
 
-    private void deckDeleteBtn(ActionEvent e) {
-        boolean confirmDelete = showMessage("Are you sure!");
+    private void degreeDeleteBtn(ActionEvent e) {
+        boolean confirmDelete = showMessage("Are you sure?");
 
         if (confirmDelete) {
-            DeckType.delete(deckTypeKey);
-            PopulateTableDeck();
+            Degree.delete(DegreeKey);
+            PopulateTableDegree();
         }
-        isDeckTypeUpdate = false;
-        deckTypeKey = 0;
-        deckDeleteBtn.setEnabled(false);
-        deckTextField.setText("");
+        isDegreeUpdate = false;
+        DegreeKey = 0;
+        degreeDeleteBtn.setEnabled(false);
+        degreeNameTextField.setText("");
+        degreeGradeTextField.setText("");
     }
 
 
-    private void deckSaveBtnActionPerformed(ActionEvent e) {
-        if (deckTextField.getText().isEmpty()) {
+    private void degreeSaveBtnActionPerformed(ActionEvent e) {
+        if (degreeNameTextField.getText().isEmpty()) {
             showMessage("Name field is empty.");
         }
-        DeckType deckType = new DeckType();
-        deckType.setName(deckTextField.getText());
-        if (isDeckTypeUpdate) {
-            DeckType.update(deckTypeKey, deckTextField.getText());
+        if (degreeGradeTextField.getText().isEmpty()) {
+            showMessage("Grade field is empty.");
+        }
+
+        Degree degree = new Degree();
+        degree.setName(degreeNameTextField.getText());
+        degree.setGrade(parseInt(degreeGradeTextField.getText()));
+        if (isDegreeUpdate) {
+            Degree.update(DegreeKey, degreeNameTextField.getText(), parseInt(degreeGradeTextField.getText()));
 
         } else {
-            deckType.create();
+            degree.create();
         }
-        isDeckTypeUpdate = false;
-        deckTypeKey = 0;
-        deckDeleteBtn.setEnabled(false);
-        deckTextField.setText("");
-        PopulateTableDeck();
+        isDegreeUpdate = false;
+        DegreeKey = 0;
+        degreeDeleteBtn.setEnabled(false);
+        degreeNameTextField.setText("");
+        degreeGradeTextField.setText("");
+        PopulateTableDegree();
     }
 
-    private void deckTableClickMousePressed(MouseEvent e) {
-        DeckType deckType = new DeckType((int) deckTable.getValueAt(deckTable.getSelectedRow(), 0), deckTable.getValueAt(deckTable.getSelectedRow(), 1).toString());
+    private void degreeTableClickMousePressed(MouseEvent e) {
+        Degree degree = new Degree((int) degreeTable.getValueAt(degreeTable.getSelectedRow(), 0),
+                                degreeTable.getValueAt(degreeTable.getSelectedRow(), 1).toString(),
+                                parseInt(degreeTable.getValueAt(degreeTable.getSelectedRow(), 2).toString()));
 
-        deckDeleteBtn.setEnabled(true);
-        this.isDeckTypeUpdate = true;
-        this.deckTypeKey = deckType.getKey();
-        deckTextField.setText(deckType.getName());
+        degreeDeleteBtn.setEnabled(true);
+        this.isDegreeUpdate = true;
+        this.DegreeKey = degree.getKey();
+        degreeNameTextField.setText(degree.getName());
+        degreeGradeTextField.setText(String.valueOf(degree.getGrade()));
     }
 
-    private void deckTypesBTNActionPerformed(ActionEvent e) {
-        //Deck Button
+    private void DegreeBTNActionPerformed(ActionEvent e) {
+        //Degree Button
         panel1.removeAll();
         panel1.add(panel3);
         panel1.repaint();
         panel1.revalidate();
-        deckDeleteBtn.setEnabled(false);
-        deckTextField.setText("");
-        isDeckTypeUpdate = false;
-        deckTypeKey = 0;
-        PopulateTableDeck();
+        degreeDeleteBtn.setEnabled(false);
+        degreeNameTextField.setText("");
+        degreeGradeTextField.setText("");
+        isDegreeUpdate = false;
+        DegreeKey = 0;
+        PopulateTableDegree();
     }
 
 
@@ -316,12 +329,14 @@ public class NewJFrame extends JFrame {
         welcomeLbl = new JLabel();
         panel3 = new JPanel();
         scrollPane1 = new JScrollPane();
-        deckTable = new JTable();
+        degreeTable = new JTable();
         panel4 = new JPanel();
-        deckSaveBtn = new JButton();
-        deckTextField = new JTextField();
+        degreeSaveBtn = new JButton();
+        degreeNameTextField = new JTextField();
+        degreeGradeTextField = new JTextField();
         label4 = new JLabel();
-        deckDeleteBtn = new JButton();
+        degreeGradeLabel = new JLabel();
+        degreeDeleteBtn = new JButton();
         label5 = new JLabel();
         panel5 = new JPanel();
         scrollPane2 = new JScrollPane();
@@ -426,31 +441,32 @@ public class NewJFrame extends JFrame {
                 //======== scrollPane1 ========
                 {
 
-                    //---- deckTable ----
-                    deckTable.addMouseListener(new MouseAdapter() {
+                    //---- degreeTable ----
+                    degreeTable.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            deckTableClickMousePressed(e);
+                            degreeTableClickMousePressed(e);
                         }
                     });
-                    scrollPane1.setViewportView(deckTable);
+                    scrollPane1.setViewportView(degreeTable);
                 }
 
                 //======== panel4 ========
                 {
                     panel4.setBorder(new TitledBorder("Create"));
 
-                    //---- deckSaveBtn ----
-                    deckSaveBtn.setText("Save");
-                    deckSaveBtn.addActionListener(e -> deckSaveBtnActionPerformed(e));
+                    //---- degreeSaveBtn ----
+                    degreeSaveBtn.setText("Save");
+                    degreeSaveBtn.addActionListener(e -> degreeSaveBtnActionPerformed(e));
 
                     //---- label4 ----
                     label4.setText("Name");
+                    degreeGradeLabel.setText("Grade");
 
-                    //---- deckDeleteBtn ----
-                    deckDeleteBtn.setText("Delete");
-                    deckDeleteBtn.setEnabled(false);
-                    deckDeleteBtn.addActionListener(e -> deckDeleteBtn(e));
+                    //---- degreeDeleteBtn ----
+                    degreeDeleteBtn.setText("Delete");
+                    degreeDeleteBtn.setEnabled(false);
+                    degreeDeleteBtn.addActionListener(e -> degreeDeleteBtn(e));
 
                     GroupLayout panel4Layout = new GroupLayout(panel4);
                     panel4.setLayout(panel4Layout);
@@ -461,13 +477,16 @@ public class NewJFrame extends JFrame {
                                 .addGroup(panel4Layout.createParallelGroup()
                                     .addGroup(panel4Layout.createSequentialGroup()
                                         .addGap(77, 77, 77)
-                                        .addComponent(deckSaveBtn)
+                                        .addComponent(degreeSaveBtn)
                                         .addGap(117, 117, 117)
-                                        .addComponent(deckDeleteBtn))
+                                        .addComponent(degreeDeleteBtn))
                                     .addGroup(panel4Layout.createSequentialGroup()
                                         .addComponent(label4)
                                         .addGap(24, 24, 24)
-                                        .addComponent(deckTextField, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(degreeNameTextField, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
+
+                                    )
+                                )
                                 .addContainerGap(64, Short.MAX_VALUE))
                     );
                     panel4Layout.setVerticalGroup(
@@ -476,17 +495,17 @@ public class NewJFrame extends JFrame {
                                 .addGap(15, 15, 15)
                                 .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addComponent(label4)
-                                    .addComponent(deckTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(degreeNameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(34, 34, 34)
                                 .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(deckSaveBtn)
-                                    .addComponent(deckDeleteBtn))
+                                    .addComponent(degreeSaveBtn)
+                                    .addComponent(degreeDeleteBtn))
                                 .addContainerGap(80, Short.MAX_VALUE))
                     );
                 }
 
                 //---- label5 ----
-                label5.setText("Deck Types");
+                label5.setText("Degrees");
                 label5.setFont(label5.getFont().deriveFont(label5.getFont().getSize() + 4f));
 
                 GroupLayout panel3Layout = new GroupLayout(panel3);
@@ -715,9 +734,9 @@ public class NewJFrame extends JFrame {
         }
 
         //---- button5 ----
-        button5.setText("DeckTypes");
+        button5.setText("Degree");
         button5.setVisible(false);
-        button5.addActionListener(e -> deckTypesBTNActionPerformed(e));
+        button5.addActionListener(e -> DegreeBTNActionPerformed(e));
 
         //---- button6 ----
         button6.setText("User Types");
@@ -787,12 +806,14 @@ public class NewJFrame extends JFrame {
     private JLabel welcomeLbl;
     private JPanel panel3;
     private JScrollPane scrollPane1;
-    private JTable deckTable;
+    private JTable degreeTable;
     private JPanel panel4;
-    private JButton deckSaveBtn;
-    private JTextField deckTextField;
+    private JButton degreeSaveBtn;
+    private JTextField degreeNameTextField;
+    private JTextField degreeGradeTextField;
     private JLabel label4;
-    private JButton deckDeleteBtn;
+    private JLabel degreeGradeLabel;
+    private JButton degreeDeleteBtn;
     private JLabel label5;
     private JPanel panel5;
     private JScrollPane scrollPane2;
