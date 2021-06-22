@@ -150,7 +150,7 @@ public class User {
 
     public static boolean login(String email, String password) {
         Connection conn = Util.criarConexao();
-        String sqlCommand = "SELECT * FROM \"User\" WHERE email = ? and password = ?;";
+        String sqlCommand = "SELECT * FROM \"User\" WHERE type = 3 and email = ? and password = ?;";
         try {
             PreparedStatement st = conn.prepareStatement(sqlCommand);
             st.setString(1, email);
